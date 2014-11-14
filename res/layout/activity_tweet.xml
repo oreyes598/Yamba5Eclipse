@@ -23,6 +23,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
     android:scaleType="centerInside"
+    android:layout_marginRight="@dimen/tweet_box_relief"
     tools:context=".TweetActivity" >
 
     <fragment

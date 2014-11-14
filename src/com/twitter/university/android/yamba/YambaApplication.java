@@ -17,6 +17,7 @@ package com.twitter.university.android.yamba;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -29,6 +30,8 @@ import com.marakana.android.yamba.clientlib.YambaClient;
 public class YambaApplication extends Application
     implements SharedPreferences.OnSharedPreferenceChangeListener
 {
+    public static final boolean USING_MATERIAL = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+
     private static final String TAG = "APP";
 
     private static final String DEF_HANDLE = "student";
