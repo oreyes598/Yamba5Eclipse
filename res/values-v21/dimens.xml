@@ -25,4 +25,7 @@
     <dimen name="tweet_box_relief">0dp</dimen>
     <dimen name="corner_radius">4dp</dimen>
 
+    <dimen name="timeline_item_vertical_margin">3dp</dimen>
+    <dimen name="timeline_item_horizontal_margin">6dp</dimen>
+
 </resources>

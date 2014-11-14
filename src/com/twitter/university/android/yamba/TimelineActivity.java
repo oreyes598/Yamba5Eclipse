@@ -41,6 +41,13 @@ public class TimelineActivity extends YambaActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                .add(R.id.fragment_timeline,
+                (YambaApplication.USING_MATERIAL) ? new LollipopTimelineFragment() : new TimelineFragment())
+                .commit();
+        }
+
         usingFragments = (null != findViewById(R.id.timeline_details));
 
         if (usingFragments) { addDetailFragment(); }
