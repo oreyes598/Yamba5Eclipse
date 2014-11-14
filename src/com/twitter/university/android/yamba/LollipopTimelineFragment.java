@@ -15,6 +15,8 @@
  */
 package com.twitter.university.android.yamba;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
@@ -22,10 +24,12 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +38,7 @@ import android.widget.TextView;
 import com.twitter.university.android.yamba.view.SimpleCursorRecyclerViewAdapter;
 
 
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class LollipopTimelineFragment extends Fragment
     implements LoaderCallbacks<Cursor>, SimpleCursorRecyclerViewAdapter.ItemClickListener
 {
@@ -110,13 +115,19 @@ public class LollipopTimelineFragment extends Fragment
         return v;
     }
 
-    public void onItemClicked(Cursor c) {
+    public void onItemClicked(ViewGroup v, Cursor c) {
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+            getActivity(),
+            Pair.create(v.findViewById(TO[0]), "handle"),
+            Pair.create(v.findViewById(TO[1]), "time"),
+            Pair.create(v.findViewById(TO[2]), "tweet"));
+
         Intent i = TimelineDetailFragment.marshallDetails(
             getActivity(),
             c.getLong(c.getColumnIndex(YambaContract.Timeline.Columns.TIMESTAMP)),
             c.getString(c.getColumnIndex(YambaContract.Timeline.Columns.HANDLE)),
             c.getString(c.getColumnIndex(YambaContract.Timeline.Columns.TWEET)));
 
-        startActivity(i);
+        startActivity(i, options.toBundle());
     }
 }

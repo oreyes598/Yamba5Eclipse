@@ -15,10 +15,12 @@
  */
 package com.twitter.university.android.yamba;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.twitter.university.android.yamba.svc.YambaService;
@@ -32,13 +34,27 @@ public class TimelineActivity extends YambaActivity {
 
     @Override
     public void startActivityFromFragment(Fragment frag, Intent i, int code) {
+        startActivityFromFragment(frag, i, code, null);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void startActivityFromFragment (Fragment frag, Intent i, int code, Bundle opts) {
         if (usingFragments) { launchDetailFragment(i.getExtras()); }
-        else { super.startActivityFromFragment(frag, i, code); }
+        else {
+            if (!YambaApplication.USING_MATERIAL) {
+                super.startActivityFromFragment(frag, i, code);
+            }
+            else {
+                super.startActivityFromFragment(frag, i, code, opts);
+            }
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_timeline);
 
         if (savedInstanceState == null) {

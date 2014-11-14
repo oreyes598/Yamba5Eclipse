@@ -19,6 +19,13 @@
         <item name="android:colorPrimary">@color/primary</item>
         <item name="android:colorPrimaryDark">@color/primary_dark</item>
         <item name="android:colorAccent">@color/accent</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+
+        <item name="android:windowSharedElementEnterTransition">@transition/transform_tweet_detail</item>
+        <item name="android:windowSharedElementExitTransition">@transition/transform_tweet_detail</item>
     </style>
 
     <style name="yambaPrefs" parent="AppTheme"/>

@@ -35,7 +35,7 @@ public class SimpleCursorRecyclerViewAdapter
 {
     public static interface ViewBinder { boolean setViewValue(Context ctxt, Cursor cur, int col, View v); }
 
-    public static interface ItemClickListener { void onItemClicked(Cursor cur); }
+    public static interface ItemClickListener { void onItemClicked(ViewGroup v, Cursor cur); }
 
 
     class CursorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -50,7 +50,7 @@ public class SimpleCursorRecyclerViewAdapter
         }
 
         @Override
-        public void onClick(View v) { handleClick(pos); }
+        public void onClick(View v) { handleClick((ViewGroup) v, pos); }
 
         public void setPos(int pos) { this.pos = pos; }
         public View getView(int i) { return views[i]; }
@@ -142,9 +142,9 @@ public class SimpleCursorRecyclerViewAdapter
         return oldCursor;
     }
 
-    void handleClick(int pos) {
+    void handleClick(ViewGroup v, int pos) {
         if ((null != clickListener) && (null != cursor) && cursor.moveToPosition(pos)) {
-            clickListener.onItemClicked(cursor);
+            clickListener.onItemClicked(v, cursor);
         }
     }
 
